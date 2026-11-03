@@ -1,3 +1,4 @@
+
 # Workflow автоматической публикации статического сайта на GitHub Pages.
 # Файл размещается в репозитории по пути: .github/workflows/deploy.yml
 
@@ -25,6 +26,16 @@ jobs:
       # Шаг 1: Скопировать файлы репозитория на виртуальную машину
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      # Индивидуальный проект: проверка наличия HTML-файла
+      - name: Check HTML
+        run: |
+          if [ -f index.html ]; then
+            echo "HTML file found"
+          else
+            echo "HTML file not found"
+            exit 1
+          fi
 
       # Шаг 2: Подготовить окружение GitHub Pages
       - name: Setup Pages
